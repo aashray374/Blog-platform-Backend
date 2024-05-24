@@ -6,7 +6,7 @@ async function LoginUser(req,res){
     const {email,password} = req.body;
     const getUser = await USER.findOne({email:email});
     if(getUser){
-        const isMatch = await bcrypt.compare(password,user.password);
+        const isMatch = await bcrypt.compare(password,getUser.password);
         if(!isMatch){
             res.status(401).json({
                 success:false,
@@ -14,8 +14,8 @@ async function LoginUser(req,res){
             });
         }else{
             const payolad = {
-                getUser:{
-                    _id:getUser._id
+                user:{
+                    id:getUser.id
                 }
             };
 
@@ -43,4 +43,8 @@ async function LoginUser(req,res){
             msg:"User Does Not Exists"
         });
     }
+}
+
+module.exports = {
+    LoginUser
 }

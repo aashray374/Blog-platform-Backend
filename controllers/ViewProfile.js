@@ -1,16 +1,21 @@
 const USER = require("../models/User");
 
 async function viewProfile(req,res){
-    const user = await USER.findById(req.user._id);
+    const user = await USER.findById(req.user.id);
     if(!user){
-        res.stats(500).json({
+        res.status(500).json({
             success:false,
-            msg:"Server error"
+            msg:"Server error 2"
         });
     }else{
-        res.stats(200).json({
+        res.status(200).json({
             success:true,
-            user:user
+            name:user.name,
+            email:user.email
         });
     }
 }
+
+module.exports= {
+    viewProfile
+};

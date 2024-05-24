@@ -1,12 +1,12 @@
 const USER = require("../models/User");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 async function RegisterNewUser(req,res){
     const {name,email,password} = req.body
     try {
         const getUser = await USER.findOne({email:email});
-        if(getUser){
+        if(!getUser){
             let user = new USER();
             user.name = name;
             user.email = email;
@@ -18,7 +18,7 @@ async function RegisterNewUser(req,res){
 
             const payload = {
                 user:{
-                    _id:user._id
+                    id:user.id
                 }
             };
 
@@ -42,7 +42,7 @@ async function RegisterNewUser(req,res){
         }else{
             res.status(409).json({
                 success:false,
-                msg:"User Already exists"
+                msg:"User Already exists",
             });
         }
     } catch (error) {
@@ -51,4 +51,8 @@ async function RegisterNewUser(req,res){
             msg:"server error"
         });
     }
+}
+
+module.exports = {
+    RegisterNewUser
 }
