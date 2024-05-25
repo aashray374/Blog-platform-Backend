@@ -17,7 +17,7 @@ function isValidRequest(req, res, next) {
                 msg: "Token Invalid"
             });
         } 
-
+        console.log(decoded.user);
         req.user = decoded.user.id;
         next();
     });

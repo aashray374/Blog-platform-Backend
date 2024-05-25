@@ -1,7 +1,9 @@
 const USER = require("../models/User");
 
 async function viewProfile(req,res){
-    const user = await USER.findById(req.user.id);
+    const user = await USER.findById(req.user);
+    console.log(req.user);
+    console.log(user);
     if(!user){
         res.status(500).json({
             success:false,

@@ -2,7 +2,8 @@ const BLOG = require("../models/Blog");
 
 async function BlogOfUser(req,res){
     try {
-        const Blogs = await BLOG.find({ByUser:req.user._id})
+        const {id} = req.body;
+        const Blogs = await BLOG.find({ByUser: id});
         res.status(200).json({
             success:true,
             Blogs:Blogs
