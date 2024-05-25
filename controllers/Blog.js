@@ -6,8 +6,8 @@ async function CreateBlog(req,res){
     try {
         const blog = new BLOG();
         blog.ByUser = id;
-        blog.Body;
-        blog.title;
+        blog.Body=body;
+        blog.title=title;
         await blog.save();
 
         res.status(200).json({
@@ -60,3 +60,8 @@ async function addLike(req,res){
         });
     }
 }
+
+module.exports = {
+    CreateBlog,
+    addLike
+};
