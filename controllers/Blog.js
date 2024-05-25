@@ -61,7 +61,32 @@ async function addLike(req,res){
     }
 }
 
+async function getBlogs(req,res){
+    try {
+        const Blogs = await BLOG.find();
+        if(Blogs){
+            res.status(200).json({
+                status: true,
+                mas: "Blogs found",
+                blogs: Blogs
+            });
+        }else{
+            res.status(400).json({
+                success:true,
+                msg:"No Blogs found"
+            })
+        }
+    } catch (error) {
+        console.log(`${error}`);
+        res.status(500).json({
+            success:false,
+            msg:"Server Error"
+        });
+    }
+}
+
 module.exports = {
     CreateBlog,
-    addLike
+    addLike,
+    getBlogs
 };
